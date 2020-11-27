@@ -4,8 +4,11 @@ package journeyplan
 fun main() {
 }
 
+// SubwayMap class takes in list of segments which outline the connections in the subway
+// routesFrom takes in two stations and finds all possible routes between them
 class SubwayMap(private val segmentList: List<Segment>) {
 
+    // routesFrom utilises a helper function to allow it to search for sub-routes by recursion
     fun routesFrom(origin: Station, destination: Station): List<Route> {
         val stationsVisited: MutableList<Station> = mutableListOf()
         val finalRoutes: MutableList<Route> = mutableListOf()
@@ -39,7 +42,11 @@ class SubwayMap(private val segmentList: List<Segment>) {
         return finalRoutes.filter { it.segments.last().secondStation == destination }
     }
 }
-
+// Route class takes in a list of segments, which outline a path between stations
+// numChanges will take a route and calculate the total number of line changes
+// duration will take a route and total the time for whole journey
+// toString override function will print the route changes and stations
+// toString also allows for transitive route changes (i.e. A -> B -> C on the same line is printed as A -> C)
 class Route(val segments: List<Segment>) {
     fun numChanges(): Int {
         var currentLine = segments.first().line
